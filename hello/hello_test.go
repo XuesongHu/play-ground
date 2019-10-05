@@ -23,11 +23,14 @@ func TestHelloServer(t *testing.T) {
 	req.Name = "John"
 	rsp := new(proto.HelloResponse)
 	got := g.Hello(ctx, req, rsp)
+
+	// assert return value is nil
 	if got != nil {
 		t.Errorf("got %q and want nil", got)
 	}
 	res := rsp.GetGreeting()
 	want := "Hello John"
+	// assert rsp object is updated
 	if res != want {
 		t.Errorf("got %q and want %q", res, want)
 	}
