@@ -3,6 +3,7 @@ package hello
 import (
 	"context"
 	"testing"
+	"time"
 
 	proto "github.com/XuesongHu/play-ground/hello/proto"
 	"github.com/micro/go-micro"
@@ -50,6 +51,31 @@ func TestHelloClient(t *testing.T) {
 	want := ""
 	got := rsp.GetGreeting()
 	// the actual should be empty as the call could not go through
+	if got != want {
+		t.Errorf("got %q and want %q", got, want)
+	}
+}
+
+func TestServer(t *testing.T) {
+	// set up the server, client and server use name to identify
+	// each other, so both client and server need to create a
+	// micro service object with the same name
+	service := micro.NewService(
+		micro.Name("greeter"),
+	)
+	proto.RegisterGreeterHandler(service.Server(), new(Greeter))
+	go service.Run()
+	time.Sleep(5 * time.Second)
+	client := micro.NewService(
+		micro.Name("greeter"),
+	)
+	greeter := proto.NewGreeterService("greeter", client.Client())
+	rsp, err := greeter.Hello(context.TODO(), &proto.HelloRequest{Name: "John"})
+	if err != nil {
+		t.Errorf("got %q and want nil", err)
+	}
+	want := "Hello John"
+	got := rsp.GetGreeting()
 	if got != want {
 		t.Errorf("got %q and want %q", got, want)
 	}
