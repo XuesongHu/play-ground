@@ -11,7 +11,7 @@ The following two steps are optional, only needed if you don't have those packag
 `protoc --proto_path=. --micro_out=. --go_out=. hello.proto`
 
 The folder structure for the project is as follows:
-```
+```bash
 .
 ├── README.md
 ├── go.mod
