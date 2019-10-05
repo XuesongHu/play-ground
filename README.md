@@ -9,3 +9,19 @@ The following two steps are optional, only needed if you don't have those packag
 `go get github.com/micro/protoc-gen-micro`
 
 `protoc --proto_path=. --micro_out=. --go_out=. hello.proto`
+
+The folder structure for the project is as follows:
+```
+.
+├── README.md
+├── go.mod
+├── go.sum
+├── hello
+│   ├── hello.go
+│   ├── hello_test.go
+│   └── proto
+│       ├── hello.micro.go
+│       ├── hello.pb.go
+│       └── hello.proto
+└── main.go
+```
