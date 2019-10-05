@@ -1,6 +1,11 @@
 package hello
 
-import "testing"
+import (
+	"context"
+	"testing"
+
+	proto "github.com/XuesongHu/play-ground/hello/proto"
+)
 
 // TestHello tests Hello()
 func TestHello(t *testing.T) {
@@ -8,5 +13,16 @@ func TestHello(t *testing.T) {
 	want := "micro"
 	if got != want {
 		t.Errorf("got %q and want %q", got, want)
+	}
+}
+
+func TestHelloServer(t *testing.T) {
+	g := Greeter{}
+	ctx := context.Background()
+	req := new(proto.HelloRequest)
+	rsp := new(proto.HelloResponse)
+	got := g.Hello(ctx, req, rsp)
+	if got != nil {
+		t.Errorf("got %q and want nil", got)
 	}
 }
