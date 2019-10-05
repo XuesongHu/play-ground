@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"ibm.com/hello/hello"
+	"github.com/XuesongHu/play-ground/hello"
 )
 
 func main() {

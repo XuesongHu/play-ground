@@ -1,4 +1,4 @@
-module ibm.com/hello
+module github.com/XuesongHu/play-ground
 
 go 1.13
 
