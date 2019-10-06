@@ -1,4 +1,5 @@
 syntax = "proto3";
+package helloproto;
 
 service Greeter {
 	rpc Hello(HelloRequest) returns (HelloResponse) {}
