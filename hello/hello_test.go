@@ -7,6 +7,7 @@ import (
 
 	proto "github.com/XuesongHu/play-ground/hello/proto"
 	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/client"
 )
 
 // TestHello tests Hello()
@@ -51,6 +52,27 @@ func TestHelloClient(t *testing.T) {
 	want := ""
 	got := rsp.GetGreeting()
 	// the actual should be empty as the call could not go through
+	if got != want {
+		t.Errorf("got %q and want %q", got, want)
+	}
+}
+
+type mockGreeterService struct{}
+
+func (c *mockGreeterService) Hello(ctx context.Context, in *proto.HelloRequest, opts ...client.CallOption) (*proto.HelloResponse, error) {
+	out := new(proto.HelloResponse)
+	out.Greeting = "Hello Mock"
+	return out, nil
+}
+
+func TestMockClient(t *testing.T) {
+	greeter := mockGreeterService{}
+	rsp, err := greeter.Hello(context.TODO(), &proto.HelloRequest{Name: "John"})
+	if err != nil {
+		t.Errorf("got %q and want nil", err)
+	}
+	want := "Hello Mock"
+	got := rsp.GetGreeting()
 	if got != want {
 		t.Errorf("got %q and want %q", got, want)
 	}
