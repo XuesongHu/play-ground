@@ -8,8 +8,7 @@ import (
 )
 
 // Hello return string
-func Hello() string {
-	service := micro.NewService()
+func Hello(service micro.Service) string {
 	return service.String()
 }
 

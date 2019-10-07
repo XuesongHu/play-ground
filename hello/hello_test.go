@@ -12,7 +12,8 @@ import (
 
 // TestHello tests Hello()
 func TestHello(t *testing.T) {
-	got := Hello()
+	service := micro.NewService()
+	got := Hello(service)
 	want := "micro"
 	if got != want {
 		t.Errorf("got %q and want %q", got, want)
